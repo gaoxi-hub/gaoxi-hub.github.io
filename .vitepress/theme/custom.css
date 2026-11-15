@@ -1,0 +1,176 @@
+/**
+ * 简洁专业风格：白底 + 蓝色强调，支持暗色。
+ * 只改 CSS 变量，不改默认主题结构，升级 VitePress 不会炸。
+ */
+:root {
+  --vp-c-brand-1: #2563eb;
+  --vp-c-brand-2: #1d4ed8;
+  --vp-c-brand-3: #1e40af;
+  --vp-c-brand-soft: rgba(37, 99, 235, 0.14);
+
+  --vp-c-text-1: #1a1a2e;
+  --vp-c-text-2: #475569;
+  --vp-c-text-3: #64748b;
+
+  --vp-font-family-base: system-ui, -apple-system, 'PingFang SC', 'Microsoft YaHei',
+    'Helvetica Neue', sans-serif;
+
+  --vp-layout-max-width: 1200px;
+}
+
+.dark {
+  --vp-c-brand-1: #60a5fa;
+  --vp-c-brand-2: #3b82f6;
+  --vp-c-brand-3: #2563eb;
+  --vp-c-brand-soft: rgba(96, 165, 250, 0.16);
+
+  --vp-c-bg: #0f172a;
+  --vp-c-bg-alt: #131c31;
+  --vp-c-bg-soft: #1a2438;
+  --vp-c-text-1: #e2e8f0;
+  --vp-c-text-2: #b6c2d4;
+}
+
+/* 正文可读性：限制行宽 */
+.vp-doc p,
+.vp-doc li {
+  line-height: 1.75;
+}
+
+/* 简历页：压缩无谓留白 */
+.resume h2 {
+  margin-top: 2.2rem;
+  padding-bottom: 0.3rem;
+  border-bottom: 1px solid var(--vp-c-divider);
+}
+
+/* 项目卡片网格（首页 / 项目页） */
+.card-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
+  gap: 16px;
+  margin: 24px 0;
+}
+
+.card {
+  display: block;
+  padding: 18px 20px;
+  border: 1px solid var(--vp-c-divider);
+  border-radius: 12px;
+  transition: border-color 0.2s, transform 0.2s;
+}
+
+.card:hover {
+  border-color: var(--vp-c-brand-1);
+  transform: translateY(-2px);
+  text-decoration: none;
+}
+
+.card h3 {
+  margin: 0 0 6px;
+  font-size: 16px;
+}
+
+.card p {
+  margin: 0;
+  font-size: 14px;
+  color: var(--vp-c-text-2);
+}
+
+.card .stack {
+  display: inline-block;
+  margin-top: 10px;
+  font-size: 12px;
+  color: var(--vp-c-brand-1);
+}
+
+@media (max-width: 768px) {
+  .card-grid {
+    grid-template-columns: 1fr;
+  }
+}
+
+/* ===========================================================
+   简历打印 / 导出 PDF
+   浏览器 Cmd+P → 目标「存为 PDF」即得 A4 版简历。
+   =========================================================== */
+@media print {
+  /* 隐藏站点外壳：导航、侧栏、页脚、正文内边距 */
+  .VPNav,
+  .VPSidebar,
+  .VPFooter,
+  .VPLocalNav,
+  .VPDocFooter,
+  .VPBackdrop,
+  .VPSkipLink,
+  .VPDocAside {
+    display: none !important;
+  }
+
+  .VPContent,
+  .VPDoc,
+  .VPDoc .container,
+  .VPDoc .content,
+  .VPDoc .content-container,
+  .vp-doc {
+    max-width: 100% !important;
+    width: 100% !important;
+    margin: 0 !important;
+    padding: 0 !important;
+  }
+
+  /* 简历内的操作按钮不打印 */
+  .resume-page .actions {
+    display: none !important;
+  }
+
+  body {
+    background: #fff !important;
+  }
+
+  .resume-page {
+    max-width: 100% !important;
+    padding: 0 !important;
+    font-size: 11pt;
+  }
+
+  /* 保证经历块不被切成两半 */
+  .resume-page section {
+    break-inside: avoid;
+    page-break-inside: avoid;
+  }
+
+  .resume-page .proj,
+  .resume-page .tl-item {
+    break-inside: avoid;
+    page-break-inside: avoid;
+  }
+
+  .resume-page h2 {
+    break-after: avoid;
+    page-break-after: avoid;
+  }
+
+  /* 打印时用纯黑，避免浅灰看不清 */
+  .resume-page,
+  .resume-page li,
+  .resume-page .tl-role,
+  .resume-page .edu {
+    color: #000 !important;
+  }
+
+  .resume-page .todo {
+    color: #8a4b00 !important;
+    background: transparent !important;
+  }
+
+  .resume-page a {
+    color: #000 !important;
+    text-decoration: none !important;
+  }
+
+  @page {
+    size: A4;
+    margin: 10mm 11mm;
+  }
+}
