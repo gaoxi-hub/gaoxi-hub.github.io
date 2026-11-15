@@ -12,8 +12,8 @@ export default defineConfig({
   description: 'Java 后端工程师 / 全栈 —— 个人简历与技术笔记',
   lastUpdated: true,
 
-  // README.md 是仓库说明，不当作站点页面
-  srcExclude: ['README.md'],
+  // README.md 是仓库说明、01-PRD 是内部文档，都不当作站点页面
+  srcExclude: ['README.md', '01-PRD/**'],
 
   head: [
     ['link', { rel: 'icon', href: `${BASE}favicon.svg` }],
